@@ -1,0 +1,39 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["mongoDb"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Table {
+   id       String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
+   players  Player[]
+   deck     Deck[]
+}
+
+model Deck {
+  id        String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  table     Table     @relation(fields: [tableId], references: [id])
+  tableId   String    @db.ObjectId
+  card      Card[]
+}
+
+model Player {
+  id       String  @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  table    Table   @relation(fields: [tableId], references: [id])
+  tableId  String  @db.ObjectId
+  name     String
+}
+
+model Card {
+  id       String  @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  deck     Deck   @relation(fields: [deckId], references: [id])
+  deckId   String  @db.ObjectId
+  color    String?
+  pic_url  String
+  type     String
+  value    Int?
+}

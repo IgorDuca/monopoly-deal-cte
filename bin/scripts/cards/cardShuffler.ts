@@ -1,12 +1,12 @@
 import * as fs from 'fs';
 
-import { cardInterface } from '../../types/cardType';
-import { actionCardInterface } from '../../types/actionCardType';
-import { moneyCardInterface } from '../../types/moneyCardType';
+import { cardType } from '../../types/gameAssets/cardType';
+import { actionCardType } from '../../types/gameAssets/actionCardType';
+import { moneyCardType } from '../../types/gameAssets/moneyCardType';
 
 class cardShuffler {
-    public shuffleProperties(): cardInterface[] {
-        var cards: cardInterface[] = [];
+    public shuffleProperties(): cardType[] {
+        var cards: cardType[] = [];
 
         shuffle("brown",  2, "property").forEach(card => { cards.push(card) });
         shuffle("cyan",   3, "property").forEach(card => { cards.push(card) });
@@ -22,8 +22,8 @@ class cardShuffler {
         return cards;
     }
 
-    public shuffleWilds(): cardInterface[] {
-        var cards: cardInterface[] = []; 
+    public shuffleWilds(): cardType[] {
+        var cards: cardType[] = []; 
 
         shuffle("brown_cyan",  1, "wild").forEach(card => { cards.push(card) });
         shuffle("cyan_black",  1, "wild").forEach(card => { cards.push(card) });
@@ -37,8 +37,8 @@ class cardShuffler {
         return cards;
     };
 
-    public shuffleActions(): actionCardInterface[] {
-        var cards: actionCardInterface[] = []; 
+    public shuffleActions(): actionCardType[] {
+        var cards: actionCardType[] = []; 
 
         shuffle_action("property", "deal_breaker", 2).forEach(card => { cards.push(card) });
         shuffle_action("property", "forced_deal", 3).forEach(card => { cards.push(card) });
@@ -54,8 +54,8 @@ class cardShuffler {
         return cards;
     };
 
-    public shuffleRent(): cardInterface[] {
-        var cards: cardInterface[] = []; 
+    public shuffleRent(): cardType[] {
+        var cards: cardType[] = []; 
 
         shuffle("brown_cyan",  2, "rent")  .forEach(card => { cards.push(card) });
         shuffle("pink_orange", 2, "rent")  .forEach(card => { cards.push(card) });
@@ -67,8 +67,8 @@ class cardShuffler {
         return cards;
     };
 
-    public shuffleMoney(): moneyCardInterface[] {
-        var cards: moneyCardInterface[] = [];
+    public shuffleMoney(): moneyCardType[] {
+        var cards: moneyCardType[] = [];
 
         shuffle_money(6, 1).forEach(card => { cards.push(card) });
         shuffle_money(5, 2).forEach(card => { cards.push(card) });
@@ -81,16 +81,16 @@ class cardShuffler {
     }
 }
 
-function shuffle(color: string, amount: number, type: string): cardInterface[] {
-    var cards: cardInterface[] = [];
+function shuffle(color: string, amount: number, type: string): cardType[] {
+    var cards: cardType[] = [];
     
     if(type === "property") {
-        var dir_cards = fs.readdirSync(`assets/${type}/${color}`);
+        var dir_cards = fs.readdirSync(`assets/${type}/${color}/`);
     
         for(var i = 0; i < amount; i++) {
             cards.push({
                 color: color,
-                pic_url: dir_cards[i],
+                pic_url: `/api/assets/images/cards/${type}-${color}-${dir_cards[i]}`,
                 type: type
             })
         };
@@ -98,7 +98,7 @@ function shuffle(color: string, amount: number, type: string): cardInterface[] {
         for(var i = 0; i < amount; i++) {
             cards.push({
                 color: color,
-                pic_url: `assets/property/${type}/property_${color}.jpg`,
+                pic_url: `/api/assets/images/cards/property-${type}-property_${color}.jpg`,
                 type: type
             })
         };
@@ -106,7 +106,7 @@ function shuffle(color: string, amount: number, type: string): cardInterface[] {
         for(var i = 0; i < amount; i++) {
             cards.push({
                 color: color,
-                pic_url: `assets/action/rent/rent_${color}.jpg`,
+                pic_url: `/api/assets/images/cards/action-rent-rent_${color}.jpg`,
                 type: type
             })
         };
@@ -115,13 +115,13 @@ function shuffle(color: string, amount: number, type: string): cardInterface[] {
     return cards;
 };
 
-function shuffle_action(type: string, name: string, amount: number): actionCardInterface[] {
-    var cards: actionCardInterface[] = [];
+function shuffle_action(type: string, name: string, amount: number): actionCardType[] {
+    var cards: actionCardType[] = [];
 
     for(var i = 0; i < amount; i++) {
         cards.push({
             pic_url: `assets/action/${type}/${name}.jpg`,
-            type: type,
+            type: `action-${type}`,
             name: name
         })
     };
@@ -130,12 +130,13 @@ function shuffle_action(type: string, name: string, amount: number): actionCardI
 };
 
 function shuffle_money(amount: number, value: number) {
-    var cards: moneyCardInterface[] = [];
+    var cards: moneyCardType[] = [];
 
     for(var i = 0; i < amount; i++) {
         cards.push({
             pic_url: `assets/money/money_${value}.jpg`,
-            value: value
+            value: value,
+            type: "money"
         })
     };
 
