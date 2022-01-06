@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import claimDeck from '../../../../bin/scripts/deck/claimDeck'
+import claimDeck from '../../../../../bin/scripts/deck/claimDeck'
 
 export default async function handler(
   req: NextApiRequest,

@@ -12,6 +12,8 @@ model Table {
    id       String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
    players  Player[]
    deck     Deck[]
+   turn     Int       @default(1)
+   logs     Log[]
 }
 
 model Deck {
@@ -26,14 +28,25 @@ model Player {
   table    Table   @relation(fields: [tableId], references: [id])
   tableId  String  @db.ObjectId
   name     String
+  cards    Card[]
 }
 
 model Card {
-  id       String  @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  deck     Deck   @relation(fields: [deckId], references: [id])
-  deckId   String  @db.ObjectId
+  id       String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  deck     Deck?     @relation(fields: [deckId], references: [id])
+  player   Player?   @relation(fields: [playerId], references: [id])
+  playerId String?   @db.ObjectId
+  deckId   String?   @db.ObjectId
   color    String?
   pic_url  String
   type     String
   value    Int?
+}
+
+model Log {
+  id         String     @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  text       String
+  time       DateTime   @default(now())
+  table      Table      @relation(fields: [tableId], references: [id])
+  tableId    String     @db.ObjectId
 }

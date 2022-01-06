@@ -19,8 +19,10 @@ import cardShuffler from "../cards/cardShuffler";
 import { deckType } from "../../types/gameAssets/deckType";
 import { dbCardType } from '../../types/gameAssets/dbCardType';
 
+import createLogs from '../logs/creteLog'
+
 class claimDeck {
-    public async shuffleDeck(tableId: string): Promise<deckType> {
+    public async shuffleDeck(tableId: string): Promise<any> {
         var parsed_cards: dbCardType[] = [];
         var all_cards: any[] = [];
 
@@ -56,27 +58,23 @@ class claimDeck {
         
         console.log(parsed_cards);
 
-        parsed_cards.map(async card => {
-            if(card.type === "money") card_counts.money += 1
-            if(card.type === "property") card_counts.property += 1
-            if(card.type === "rent") card_counts.rent += 1
-            if(card.type === "wild") card_counts.wild += 1
-            if(card.type === "action") card_counts.action += 1
-
-            await prisma.card.create({
-                data: {
-                    deckId:   card.deckId,
-                    color:    card.color,
-                    pic_url:  card.pic_url,
-                    type:     card.type,
-                    value:    card.value
-                }
-            })
+        var parsed = parsed_cards.map(card => {
+            return {
+                deckId:   card.deckId,
+                color:    card.color,
+                pic_url:  card.pic_url,
+                type:     card.type,
+                value:    card.value
+            }
         });
 
-        console.log(card_counts);
+        await prisma.card.createMany({
+            data: parsed
+        });
 
-        return newDeck;
+        await createLogs.createDeck(tableId);
+
+        return { deck: newDeck, card_amount: parsed_cards.length };
     }
 }
 
