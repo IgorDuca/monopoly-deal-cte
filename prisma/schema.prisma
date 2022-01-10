@@ -41,6 +41,7 @@ model Card {
   pic_url  String
   type     String
   value    Int?
+  isPlayed Boolean   @default(false)
 }
 
 model Log {
