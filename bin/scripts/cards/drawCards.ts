@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 import createLogs from '../logs/creteLog';
 
 class drawCards {
-    public async draw(tableId: string, playerId: string): Promise<any[] | null> {
+    public async draw(tableId: string, playerId: string, card_amount?: number): Promise<any[] | null> {
       var player = await prisma.player.findUnique({ where: { id: playerId } });
 
       if(player !== null) {
@@ -15,13 +15,27 @@ class drawCards {
         var table = await prisma.table.findUnique({where: { id: tableId }, include: { deck: true }});
 
         if(table?.turn === 1) amount += 5
-        else amount += 3;
+        else amount += 2;
 
-        const selected_cards = await prisma.card.findMany({
-          take: amount,
-          skip: skip,
-          where: { deckId: table?.deck[0].id }
-        });
+        var selected_cards;
+
+        if(card_amount) {
+          selected_cards = await prisma.card.findMany({
+            take: card_amount,
+            skip: skip,
+            where: { deckId: table?.deck[0].id }
+          });
+          
+          await createLogs.drawCards(playerId, tableId, card_amount);
+        } else {
+          selected_cards = await prisma.card.findMany({
+            take: amount,
+            skip: skip,
+            where: { deckId: table?.deck[0].id }
+          });
+
+          await createLogs.drawCards(playerId, tableId, amount);
+        }
   
         selected_cards.forEach(async card => {
           await prisma.card.update({
@@ -32,8 +46,6 @@ class drawCards {
             }
           });
         });
-
-        await createLogs.drawCards(playerId, tableId, amount);
 
         return selected_cards;
       } else return null;
