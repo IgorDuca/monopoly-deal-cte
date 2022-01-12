@@ -10,6 +10,11 @@ export default async function handler(
     } else {
         var { tableId } = req.query;
         var unique = (data: any): string => { return data };
+
+        if(req.body.targetCardId) {
+            return res.json(await addCard.play(req.body.cardId, unique(tableId), req.body.playerId, req.body.targetCardId));
+        }
+
         return res.json(await addCard.play(req.body.cardId, unique(tableId), req.body.playerId));
     }
 }

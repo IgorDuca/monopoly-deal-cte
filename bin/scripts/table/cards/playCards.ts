@@ -5,8 +5,10 @@ import createLog from '../../logs/creteLog';
 import cardTypeHandler from '../../misc/cardTypeHandler';
 
 class addCard {
-    public async play(cardId: string, tableId: string, playerId: string) {
+    public async play(cardId: string, tableId: string, playerId: string, targetCardId?: string) {
         var card = await prisma.card.findUnique({ where: { id: cardId } });
+
+        if(card?.isPlayed === true) return { success: false, message: "This card is already played." };
 
         var player = await prisma.player.findUnique({
             where: {
@@ -17,7 +19,7 @@ class addCard {
             }
         });
 
-        if(card?.playerId === null) return { sucess: false, message: "This card is not linked to any player" };
+        if(card?.playerId === null) return { success: false, message: "This card is not linked to any player" };
 
         var cardName = (card: any) => { return card.type };
         var playerName = (name: any) => { return name };
@@ -39,6 +41,8 @@ class addCard {
                 isPlayed: true
             }
         });
+
+        if(targetCardId) await cardTypeHandler(cardName(card), tableId, playerId, targetCardId);
 
         await cardTypeHandler(cardName(card), tableId, playerId);
 

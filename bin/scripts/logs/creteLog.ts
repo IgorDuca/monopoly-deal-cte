@@ -46,6 +46,20 @@ class createLog {
             }
         });
     };
+
+    public async forcedDeal(playerId: string, cardId: string, tableId: string) {
+        var player = await prisma.player.findUnique({ where: { id: playerId } });
+        var card = await prisma.card.findUnique({ where: { id: cardId } });
+        var playerUnique = (data: any) => { return data };
+        var targetPlayer = await prisma.player.findUnique({ where: { id: playerUnique(card?.playerId) } });
+
+        return await prisma.log.create({
+            data: {
+                tableId: tableId,
+                text: `O jogador ${player?.name} roubou a carta ${card?.type} do jogador ${targetPlayer?.name}`
+            }
+        });
+    }
 }
 
 async function foundPlayer(id: string) { return await prisma.player.findUnique({ where: { id: id} }) }
