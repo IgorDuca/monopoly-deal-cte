@@ -1,0 +1,32 @@
+.tableButton {
+    border-radius: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    background-color: #13a052;
+    font-weight: bold;
+    transition: 0.125 ease;
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+    padding: 20px;
+    border: 1px dashed white;
+}
+
+.tableButton:hover {
+    background-color: #11914a;
+}
+
+.grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 800px;
+}
+
+  @media (max-width: 600px) {
+    .grid {
+      width: 100%;
+      flex-direction: column;
+    }
+  }

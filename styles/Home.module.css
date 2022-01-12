@@ -1,5 +1,8 @@
 .container {
   padding: 0 2rem;
+  background-color: rgba(30, 175, 86, 1);
+  background-size: cover;
+  color: white;
 }
 
 .main {
@@ -106,6 +109,22 @@
 .logo {
   height: 1em;
   margin-left: 0.5rem;
+}
+
+.tableButton {
+  border: none;
+  border-radius: 16px;
+  padding: 20px;
+  background-color: #16ba60;
+  color: white;
+  margin-top: 20px;
+  font-size: 16px;
+  transition: 0.125 ease;
+  cursor: pointer;
+}
+
+.tableButton:hover {
+  background-color: #11914a;
 }
 
 @media (max-width: 600px) {

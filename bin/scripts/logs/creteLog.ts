@@ -37,6 +37,15 @@ class createLog {
             }
         });
     };
+
+    public async birthdayCard(playerName: string, tableId: string) {
+        return await prisma.log.create({
+            data: {
+                tableId: tableId,
+                text: `Todos os jogadores precisam pagar 2$ para ${playerName}`
+            }
+        });
+    };
 }
 
 async function foundPlayer(id: string) { return await prisma.player.findUnique({ where: { id: id} }) }

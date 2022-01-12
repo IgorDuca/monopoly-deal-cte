@@ -2,7 +2,8 @@ export type cardType = {
     color: string
     pic_url: string,
     type: string,
-    amount?: number
+    amount?: number,
+    value: number
 }
 
 // Types: Money, property, action.

@@ -86,20 +86,38 @@ function shuffle(color: string, amount: number, type: string): cardType[] {
     
     if(type === "property") {
         var dir_cards = fs.readdirSync(`assets/${type}/${color}/`);
+
+        var value = 0;
+
+        if(color === "black" || "orange" || "pink" || "teal") value = 2;
+        if(color === "blue" || "green") value = 4;
+        if(color === "brown" || "cyan") value = 1;
+        if(color === "red" || "yellow") value = 3;
     
         for(var i = 0; i < amount; i++) {
             cards.push({
                 color: color,
                 pic_url: `/api/assets/images/cards/${type}-${color}-${dir_cards[i]}`,
-                type: type
+                type: type,
+                value: value
             })
         };
     } else if (type === "wild") {
+
+        var value = 0;
+
+        if(color === "brown_cyan") value = 1;
+        if(color === "pink_orange" || "black_teal") value = 2;
+        if(color === "cyan_black" || "green_blue") value = 4;
+        if(color === "red_yellow") value = 3;
+        if(color === "all") value = 0;
+
         for(var i = 0; i < amount; i++) {
             cards.push({
                 color: color,
                 pic_url: `/api/assets/images/cards/property-${type}-property_${color}.jpg`,
-                type: type
+                type: type,
+                value: value
             })
         };
     } else if (type === "rent") {
@@ -107,7 +125,8 @@ function shuffle(color: string, amount: number, type: string): cardType[] {
             cards.push({
                 color: color,
                 pic_url: `/api/assets/images/cards/action-rent-rent_${color}.jpg`,
-                type: type
+                type: type,
+                value: 1
             })
         };
     }
@@ -118,12 +137,21 @@ function shuffle(color: string, amount: number, type: string): cardType[] {
 function shuffle_action(type: string, name: string, amount: number): actionCardType[] {
     var cards: actionCardType[] = [];
 
+    var value = 0;
+
+    if(name === "go") value = 1;
+    if(name === "birthday") value = 2;
+    if(name === "debt_collector" || "forced_deal" || "sly_deal") value = 3;
+    if(name === "just_say_no") value = 4;
+    if(name === "deal_breaker") value = 5;
+
     for(var i = 0; i < amount; i++) {
         cards.push({
             pic_url: `assets/action/${type}/${name}.jpg`,
-            type: `action-${type}`,
-            name: name
-        })
+            type: `action-${name}`,
+            name: name,
+            value: value
+        });
     };
 
     return cards;

@@ -2,11 +2,12 @@ import type { NextPage } from 'next'
 import Link from 'next/link'
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import styles from '../../styles/Tables.module.css'
 
-import Footer from '../components/Footer'
+import Footer from '../../components/footer'
+import TableFetcher from '../../components/scripts/tableFetcher'
 
-const Home: NextPage = () => {
+const Tables: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
@@ -16,16 +17,15 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Deal Cte</h1>
+        <h1 className={styles.title}>Mesas de jogo</h1>
 
-        <Link href="/tables">
-          <button className={styles.tableButton} >Procurar por mesas</button>
-        </Link>
+        <TableFetcher />
       </main>
 
       <Footer />
+
     </div>
   )
 }
 
-export default Home
+export default Tables

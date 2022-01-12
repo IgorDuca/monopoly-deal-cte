@@ -1,6 +1,6 @@
 # Monopoly Deal Cte (Fan Remake)
 
-## Esse jogo é um Fan Remake do clássico jogo de cartas Monopoly publicado pela Hasbro.
+### Esse jogo é um Fan Remake do clássico jogo de cartas Monopoly publicado pela Hasbro.
 
 ## Table of Contents
 
