@@ -1,18 +1,28 @@
 import type { NextPage } from 'next';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import styles from '../../styles/Tables.module.css';
 
-import Footer from '../../components/Footer';
-import TableCards from '../../components/scripts/tableCards';
+import styles from '../../../styles/Tables.module.css';
+import Footer from '../../../bin/components/footer';
+import TableCards from '../../../bin/components/scripts/tableCards';
+import dataGatherer from '../../../bin/components/scripts/dataGatherer';
 
 const InGameTable: NextPage = () => {
 
     const router = useRouter();
     var { tableId } = router.query;
 
+    const [ turn, setTurn ] = useState('');
+
     const unique = (data: any) => { return data };
+
+    useEffect(() => {
+        async function getData() {
+            var tableData = await dataGatherer.getTableInfo(unique(tableId));
+            setTurn(tableData.turn);
+        } getData();
+    }, [tableId])
 
     return (
         <div className={styles.container}>
@@ -25,9 +35,9 @@ const InGameTable: NextPage = () => {
             <main className={styles.main}>
                 <h1>CARTAS NA MESA</h1>
 
-                <TableCards tableId={unique(tableId)} />
+                <h2>{turn}º turno</h2>
 
-                <img src="/api/assets/images/cards/property-black-coopec.png" />
+                <TableCards tableId={unique(tableId)} />
             </main>
 
             <Footer />

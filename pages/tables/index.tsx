@@ -1,11 +1,11 @@
-import type { NextPage } from 'next'
-import Link from 'next/link'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../../styles/Tables.module.css'
+import type { NextPage } from 'next';
+import Link from 'next/link';
+import Head from 'next/head';
+import Image from 'next/image';
+import styles from '../../styles/Tables.module.css';
 
-import Footer from '../../components/footer'
-import TableFetcher from '../../components/scripts/tableFetcher'
+import Footer from '../../bin/components/footer';
+import TableFetcher from '../../bin/components/scripts/tableFetcher';
 
 const Tables: NextPage = () => {
   return (

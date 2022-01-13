@@ -1,12 +1,12 @@
-import type { NextPage } from 'next'
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
-import Head from 'next/head'
-import styles from '../../styles/Tables.module.css'
+import type { NextPage } from 'next';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import Head from 'next/head';
+import styles from '../../styles/Tables.module.css';
 
-import Footer from '../../components/footer'
+import Footer from '../../bin/components/footer';
 
-import TableInfoById from '../../components/scripts/tableInfoById';
+import TableInfoById from '../../bin/components/scripts/tableInfoById';
 
 const Tables: NextPage = () => {
 

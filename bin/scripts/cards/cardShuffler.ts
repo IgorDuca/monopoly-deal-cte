@@ -147,7 +147,7 @@ function shuffle_action(type: string, name: string, amount: number): actionCardT
 
     for(var i = 0; i < amount; i++) {
         cards.push({
-            pic_url: `assets/action/${type}/${name}.jpg`,
+            pic_url: `/api/assets/action/${type}/${name}.jpg`,
             type: `action-${name}`,
             name: name,
             value: value
@@ -162,7 +162,7 @@ function shuffle_money(amount: number, value: number) {
 
     for(var i = 0; i < amount; i++) {
         cards.push({
-            pic_url: `assets/money/money_${value}.jpg`,
+            pic_url: `/api/assets/money/money_${value}.jpg`,
             value: value,
             type: "money"
         })

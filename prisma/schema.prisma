@@ -24,11 +24,12 @@ model Deck {
 }
 
 model Player {
-  id       String  @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  table    Table   @relation(fields: [tableId], references: [id])
-  tableId  String  @db.ObjectId
-  name     String
-  cards    Card[]
+  id          String  @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  table       Table   @relation(fields: [tableId], references: [id])
+  tableId     String  @db.ObjectId
+  name        String
+  cards       Card[]
+  hadPlayed   Boolean
 }
 
 model Card {

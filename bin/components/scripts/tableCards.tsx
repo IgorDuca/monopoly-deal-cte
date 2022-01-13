@@ -2,10 +2,9 @@ import { useEffect, useState } from "react";
 import dataGatherer from './dataGatherer';
 import Image from 'next/image';
 
-import styles from '../../styles/Home.module.css';
+import styles from '../../../styles/Home.module.css';
 
 export default function TableCards({ tableId }: { tableId: string; }): JSX.Element {
-
     var [ cards, setCards ] = useState([
         {
             pic_url: "",
@@ -21,24 +20,28 @@ export default function TableCards({ tableId }: { tableId: string; }): JSX.Eleme
 
             cards.map((card: any) => {
                 setCards((cards) => [...cards, {
-                    pic_url: card.url,
+                    pic_url: card.pic_url,
                     id: card.id
                 }]);
             });
-        } getData();
 
-        console.log(cards)
-    }, [])
+            document.getElementsByClassName("generated_card")[0].innerHTML = ""
+        } getData();
+    }, [tableId])
 
     return (
         <div>
             <div className={styles.grid}>
                 {
-                    cards.map(card => (
-                        <div key={card.id}>
-                            <img src={card.pic_url} />
-                        </div>
-                    ))
+                    cards.map(card => {
+                        console.log(card)
+
+                        return (
+                            <div key={card.id} className="generated_card">
+                                <img src={`http://localhost:3000${card.pic_url}`} />
+                            </div>
+                        )
+                    })
                 }
             </div>
         </div>

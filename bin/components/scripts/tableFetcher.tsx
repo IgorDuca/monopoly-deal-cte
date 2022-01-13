@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { NextPage } from 'next';
 
-import styles from '../../styles/Components.module.css';
+import styles from '../../../styles/Components.module.css';
 import Link from 'next/link';
 
 type tableType = {
