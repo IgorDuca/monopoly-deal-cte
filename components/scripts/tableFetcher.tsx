@@ -27,7 +27,7 @@ const TableFetcher: NextPage = () => {
 
     useEffect(() => {
         async function getData() {
-            var tables = (await axios.get<tableType[]>('http://localhost:3000/api/table/fetch')).data;
+            var tables = (await axios.get<tableType[]>('/api/table/fetch')).data;
     
             console.log(tables)
     

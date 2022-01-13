@@ -7,8 +7,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-    if(req.method !== 'GET') {
-        return res.status(404).json("Request needs to be 'GET'")
+    if(req.method !== 'POST') {
+        return res.status(404).json("Request needs to be 'POST'")
     } else {
         var { deckId } = req.query;
         var unique = (data: any): string => { return data }
@@ -17,6 +17,8 @@ export default async function handler(
         if(deck === null) return res.status(505).json("Deck not found");
         var table = await prisma.table.findUnique({ where: { id: unique(deck.tableId) }});
         if(table === null) return res.status(505).json("Table not found");
-        return res.status(200).json(await prisma.card.findMany({ where: { deckId: deck.id } }));
+        
+        if(req.body.isPlayed === true) return res.status(200).json(await prisma.card.findMany({ where: { deckId: deck.id, isPlayed: true } }));
+        else return res.status(200).json(await prisma.card.findMany({ where: { deckId: deck.id } }));
     }
 }

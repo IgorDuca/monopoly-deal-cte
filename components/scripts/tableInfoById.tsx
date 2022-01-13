@@ -5,30 +5,42 @@ import { NextPage } from 'next';
 import styles from '../../styles/Components.module.css';
 import Link from 'next/link';
 
-const TableInfoById: NextPage = ({ id }: { id: string }) => {
+import { FiAlertCircle } from 'react-icons/fi';
 
-    const [ tableName, setName ] = useState("");
-    const [ playerLength, setPlayerLength ] = useState(0);
-    const [ username, setUsername ] = useState("Nome de usuário");
+import dataGatherer from './dataGatherer';
+
+function TableInfoById({ id }: { id: string; }): JSX.Element {
+
+    const [tableName, setName] = useState("");
+    const [playerLength, setPlayerLength] = useState(0);
+    const [username, setUsername] = useState("Nome de usuário");
+    const [ isTableFull, setTableStatus ] = useState(false);
 
     useEffect(() => {
         async function getData() {
-            var data = await (await axios.get(`http://localhost:3000/api/table/fetch/id/${id}`)).data;
-            console.log(data);
-            setName(`Mesa de ${data.players[0].name}`);
-            setPlayerLength(data.players.length);
 
-            var card_request = await (await axios.get(`http://localhost:3000/api/table/fetch/cards/${data.deck[0].id}`)).data;
-
-            console.log(card_request);
+            var tableData = await dataGatherer.getTableInfo(id);
+            setName(`Mesa de ${tableData.players[0].name}`);
+            setPlayerLength(tableData.players.length);
         } getData();
     }, [id]);
 
     async function formSubmit(event: any) {
         event.preventDefault();
-        var req = (await axios.get(`http://localhost:3000/api/table/players/${id}/${username}/create`)).data;
+        var req = (await axios.get(`/api/table/players/${id}/${username}/create`)).data;
 
-        console.log(req)
+        console.log(req);
+    }
+
+    function ErrorLooker() {
+        if(playerLength >= 4) {
+            setTableStatus(true);
+            return (
+                <div className={styles.isTableFullDiv} >
+                    <h2>PARTIDA CHEIA! <FiAlertCircle /></h2>
+                </div>
+            )
+        } else return ( <div></div> )
     }
 
     return (
@@ -40,14 +52,16 @@ const TableInfoById: NextPage = ({ id }: { id: string }) => {
             <div>
                 <h2>{playerLength}/4 jogadores</h2>
             </div>
-            
+
+            <ErrorLooker />
+
             <div>
                 <form onSubmit={formSubmit}>
-                    <input type="text" value={username} className={styles.usernameInput} onChange={(key) => { setUsername(key.target.value) }} />
+                    <input type="text" id="username_input" value={username} className={styles.usernameInput} onChange={(key) => { setUsername(key.target.value); } } disabled={isTableFull} />
                 </form>
             </div>
         </main>
-    )
+    );
 }
 
 export default TableInfoById

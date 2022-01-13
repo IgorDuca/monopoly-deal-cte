@@ -13,6 +13,8 @@ const Tables: NextPage = () => {
     const router = useRouter();
     var { tableId } = router.query;
 
+    const uniqueId = (data: any) => { return data };
+
     return (
         <div className={styles.container}>
             <Head>
@@ -21,7 +23,7 @@ const Tables: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <TableInfoById id={tableId} />
+            <TableInfoById id={uniqueId(tableId)} />
 
             <Footer />
         </div>

@@ -46,6 +46,16 @@
   text-align: center;
 }
 
+.usernameInput:disabled {
+  filter: grayscale(100%);
+  cursor: not-allowed;
+}
+
+.isTableFullDiv {
+  text-align: center;
+  align-items: center;
+}
+
 .infoHolder {
   align-items: center;
 }
