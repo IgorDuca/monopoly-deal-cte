@@ -7,11 +7,14 @@ import styles from '../../../styles/Tables.module.css';
 import Footer from '../../../bin/components/footer';
 import TableCards from '../../../bin/components/scripts/tableCards';
 import dataGatherer from '../../../bin/components/scripts/dataGatherer';
+import playerInfo from '../../../bin/components/scripts/playerInfo';
+
+import { PlayerType } from '../../../bin/components/types/playerType';
 
 const InGameTable: NextPage = () => {
 
     const router = useRouter();
-    var { tableId } = router.query;
+    var { tableId, playerId } = router.query;
 
     const [ turn, setTurn ] = useState('');
 
@@ -21,6 +24,9 @@ const InGameTable: NextPage = () => {
         async function getData() {
             var tableData = await dataGatherer.getTableInfo(unique(tableId));
             setTurn(tableData.turn);
+
+            var pInfo: PlayerType = await playerInfo(tableData, unique(playerId));
+            console.log(pInfo)
         } getData();
     }, [tableId])
 

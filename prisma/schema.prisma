@@ -29,7 +29,7 @@ model Player {
   tableId     String  @db.ObjectId
   name        String
   cards       Card[]
-  hadPlayed   Boolean
+  hadPlayed   Boolean @default(false)
 }
 
 model Card {
