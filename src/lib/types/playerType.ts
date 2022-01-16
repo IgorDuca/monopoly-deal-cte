@@ -1,0 +1,8 @@
+import { cardType } from "./cardType"
+
+export type playerType = {
+    id: string,
+    tableId: string,
+    name: string,
+    cards: cardType[]
+}

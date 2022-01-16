@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "isolatedModules": true,
+    "target": "es2017",
+    "module": "commonjs",
+    "lib": [ "es6" ],
+    "allowJs": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "removeComments": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/@types"
+    ],
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@lib/*": [ "./src/lib/*" ],
+      "@cardAssets/*": [ "./src/cardAssets/*" ],
+      "@helpers/*": [ "./src/helpers/*" ],
+      "@components/*": [ "./src/components/*" ],
+      "@scripts/*": [ "./src/scripts/*" ],
+      "@tests/*": [ "./src/tests/*" ],
+      "@types/*": [ "./src/lib/types/*" ],
+  
+    }
+  },
+  "include": [
+    "src/**/*"
+  ]
+}

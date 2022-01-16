@@ -1,0 +1,26 @@
+{
+  "name": "Will",
+  "version": "1.0.0",
+  "description": "The Deal-Cte card controller",
+  "main": "src/main.ts",
+  "author": "IgorDuca",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.16.8",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/jest": "^27.4.0",
+    "@types/node": "^17.0.8",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.5.4"
+  },
+  "scripts": {
+    "start": "ts-node-dev src/main.ts",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@babel/preset-env": "^7.16.8",
+    "@types/babel__generator": "^7.6.4",
+    "fs": "^0.0.1-security",
+    "jest": "^27.4.7"
+  }
+}
