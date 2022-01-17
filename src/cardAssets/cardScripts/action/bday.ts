@@ -1,5 +1,5 @@
 import { playerType } from "../../../lib/types/playerType";
-import Buffet from '../../../helpers/buffet'
+import Buffett from '../../../helpers/buffett';
 
 export default function cardsBday(players: playerType[], mainPlayerId: string) {
 
@@ -9,7 +9,7 @@ export default function cardsBday(players: playerType[], mainPlayerId: string) {
 
     players.forEach(player => {
         if(player.id !== mainPlayerId) {
-            var payout = Buffet.payout(player, 2);
+            var payout = Buffett.payout(player, 2);
             playerPayouts.push({ id: player.id, buffet_payout: payout });
         };
     });

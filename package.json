@@ -1,8 +1,8 @@
 {
-  "name": "Will",
+  "name": "will",
   "version": "1.0.0",
   "description": "The Deal-Cte card controller",
-  "main": "src/main.ts",
+  "main": "src/index.ts",
   "author": "IgorDuca",
   "license": "MIT",
   "devDependencies": {
@@ -14,7 +14,7 @@
     "typescript": "^4.5.4"
   },
   "scripts": {
-    "start": "ts-node-dev src/main.ts",
+    "start": "ts-node-dev src/index.ts",
     "test": "jest"
   },
   "dependencies": {

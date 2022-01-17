@@ -1,7 +1,7 @@
 import { playerType } from "src/lib/types/playerType";
 import { cardType } from "src/lib/types/cardType";
 
-class Buffet {
+class Buffett {
     public payout(player: playerType, cost: number,) {
         console.log(player, cost)
 
@@ -49,4 +49,4 @@ function searchPayout(values: number[]) {
     return num_pairs;
 };
 
-export default new Buffet();
+export default new Buffett();

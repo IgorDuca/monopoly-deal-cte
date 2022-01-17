@@ -1,4 +1,4 @@
-type cardType = {
+export type cardType = {
     color: string
     pic_url: string,
     type: string,
